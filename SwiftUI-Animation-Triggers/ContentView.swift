@@ -8,14 +8,49 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showButtons = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+        ZStack(alignment: .bottomTrailing) {
+            VStack (spacing: 20) {
+                Text("Triggers").font(.largeTitle)
+                Text("Button").foregroundColor(.gray).font(.title)
+                Spacer()
+            }.frame(maxWidth: .infinity)
+            
+            Group {
+                Button(action: {self.showButtons.toggle()}){
+                    Image(systemName: "bag.badge.plus").padding(.all,24)
+                        .rotationEffect(.degrees(showButtons ? 0 : -90), anchor: .center)
+                }.background(Circle().fill(Color.green).shadow(radius: 8, x: 4, y: 4))
+                    .offset(x: 0, y: showButtons ? -150 : 0)
+                    .opacity(showButtons ? 1 : 0 )
+                
+                Button(action: {self.showButtons.toggle()}){
+                    Image(systemName: "gauge.badge.plus").padding(.all,24)
+                        .rotationEffect(.degrees(showButtons ? 0 : 90), anchor: .center)
+                }.background(Circle().fill(Color.green).shadow(radius: 8, x: 4, y: 4))
+                    .offset(x: showButtons ? -110 : 0, y: showButtons ? -110 : 0)
+                    .opacity(showButtons ? 1 : 0 )
+                
+                Button(action: {self.showButtons.toggle()}){
+                    Image(systemName: "calendar.badge.plus").padding(.all,24)
+                        .rotationEffect(.degrees(showButtons ? 0 : 90), anchor: .center)
+                }.background(Circle().fill(Color.green).shadow(radius: 8, x: 4, y: 4))
+                    .offset(x: showButtons ? -150 : 0, y: 0)
+                    .opacity(showButtons ? 1 : 0 )
+                
+                Button(action: {self.showButtons.toggle()}){
+                    Image(systemName: "plus").padding(.all,24)
+                        .rotationEffect(.degrees(showButtons ? 0 : 90), anchor: .center)
+                }.background(Circle().fill(Color.green).shadow(radius: 8, x: 4, y: 4))
+                     
+                
+            }.padding(.trailing, 20)
+                .accentColor(.white)
+                .animation(.default, value: showButtons)
+        } //ZSTACK
+        .font(.title)
     }
 }
 
